@@ -1,0 +1,16 @@
+{% extends "nodectl/base.html" %}
+
+{% block title %}My amazing blog{% endblock %}
+
+{% block content %}
+
+{% if node_list %}
+    <ul>
+    {% for node in node_list %}
+        <li><a href="{% url 'nodectl:node' node.id %}">{{ node.descr }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No nodes are available.</p>
+{% endif %}
+{% endblock %}
