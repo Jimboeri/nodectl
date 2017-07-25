@@ -1,0 +1,19 @@
+{% extends "nodectl/base.html" %}
+
+{% block content %}
+<h1>{{ nodedevice }}</h1>
+<p>Node ID {{ nodedevice.node_id.node }}</p>
+<p></p>Device ID {{ nodedevice.device_id.device_id }}</p>
+
+{% if radiolist %}
+    <ul>
+    {% for radio in radiolist %}
+        <li>{{ radio.dt }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No radio messages are available.</p>
+{% endif %}
+
+
+{% endblock %}
