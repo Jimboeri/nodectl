@@ -2,11 +2,43 @@
 
 {% block content %}
 <h1>{{ node.descr }}</h1>
-<p>Description {{ node.descr }}</p>
-<p>mqtt topic {{ node.mqtt_topic }}</p>
-<p>first active {{ node.first_active }}</p>
-<p>Last active {{ node.last_active }}</p>
-<p>Last status {{ node.last_status }}</p>
+<div class="w3-row">
+  <div class="w3-col s2">
+    <p>Description</p> 
+  </div>
+    <div class="w3-col s10">
+    <p>{{ node.descr }}</p> 
+  </div>
+</div>
+<div class="w3-row">
+  <div class="w3-col s2">
+    <p>mqtt topic</p> 
+  </div>
+    <div class="w3-col s10">
+    <p>{{ node.mqtt_topic }}</p> 
+  </div>
+</div><div class="w3-row">
+  <div class="w3-col s2">
+    <p>first active</p> 
+  </div>
+    <div class="w3-col s10">
+    <p>{{ node.first_active }}</p> 
+  </div>
+</div><div class="w3-row">
+  <div class="w3-col s2">
+    <p>Last active</p> 
+  </div>
+    <div class="w3-col s10">
+    <p>{{ node.last_active }}</p> 
+  </div>
+</div><div class="w3-row">
+  <div class="w3-col s2">
+    <p>Last status</p> 
+  </div>
+    <div class="w3-col s10">
+    <p>{{ node.last_status }}</p> 
+  </div>
+</div>
 
 {% if nodedevices %}
     <ul>

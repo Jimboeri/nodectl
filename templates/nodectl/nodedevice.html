@@ -2,15 +2,67 @@
 
 {% block content %}
 <h1>{{ nodedevice }}</h1>
-<p>Node ID {{ nodedevice.node_id.node }}</p>
-<p></p>Device ID {{ nodedevice.device_id.device_id }}</p>
+<p>Node ID {{ nodedevice.node_id.node }} {{ nodedevice.node_id.descr }}</p>
+<p>Device ID {{ nodedevice.device_id.device_id }} {{ nodedevice.device_id.descr }}</p>
+{% if ndParam %}
+  <h3>Paramaters</h3>
+  {% for det in ndParam %}
+    <p>{{ det }}</p>
+  {% endfor %}
+{% else %}
+    <p>No parameter records are available.</p>
+{% endif %}
 
+{% if ndInfo %}
+  <h3>Last info</h3>
+  {% for det in ndInfo %}
+    <p>{{ det }}</p>
+  {% endfor %}
+{% else %}
+    <p>No parameter records are available.</p>
+{% endif %}
+
+{% if mqttlist %}
+  <h3>mqtt info</h3>
+  {% for m in mqttlist %}
+    <p>{{ m }}</p>
+  {% endfor %}
+{% else %}
+    <p>No MQTT data are available.</p>
+{% endif %}
+
+
+
+<P>SQL {{ sql }}</P>
 {% if radiolist %}
-    <ul>
+    <table class="w3-table-all w3-hoverable">
+      <thead>
+        <tr class="w3-light-grey">
+          <th>Action</th>
+          <th>Result</th>
+          <th>Float 1</th>
+          <th>Float 2</th>
+          <th>Float 3</th>
+          <th>Float 4</th>
+          <th>Tx Rx</th>
+          <th>RSSI</th>
+          <th>Date/time</th>
+        </tr>
+      </thead>
     {% for radio in radiolist %}
-        <li>{{ radio.dt }}</li>
+      <tr>
+        <td>{{ radio.action }}</td>
+        <td>{{ radio.result }}</td>
+        <td>{{ radio.float_1 }}</td>
+        <td>{{ radio.float_2 }}</td>
+        <td>{{ radio.float_3 }}</td>
+        <td>{{ radio.float_4 }}</td>
+        <td>{{ radio.tx_rx }}</td>
+        <td>{{ radio.RSSI }}</td>
+        <td>{{ radio.dt }}</td>
+      </tr>
     {% endfor %}
-    </ul>
+    </table>
 {% else %}
     <p>No radio messages are available.</p>
 {% endif %}

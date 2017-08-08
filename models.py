@@ -44,14 +44,28 @@ class NodeDevice(models.Model):
   last_status  = models.CharField(max_length=200)
   
   def __str__(self):
-    node = Node.objects.get(id=1)
+    #node = Node.objects.get(id=1)
     return '{} - {}'.format(self.node_id.descr, self.device_id.name)
     
+class ndDetail(models.Model):
+  nd_id          = models.ForeignKey(NodeDevice)
+  detail_type    = models.CharField(max_length=1)
+  detail_posn    = models.IntegerField(default=1)
+  detail_text    = models.CharField(max_length=30)
+  detail_descr   = models.CharField(max_length=200)
+  req_value      = models.FloatField()
+  reported_value = models.FloatField()
+  last_update    = models.DateTimeField()
+  
+  def __str__(self):
+    return "{} - {} - {} - {}".format(self.nd_id.node_id.descr, self.nd_id.device_id.name,\
+      self.detail_type, self.detail_text)
+    
 class RadioMsg(models.Model):
-  ID       = models.IntegerKey(primary_key=True)
+  ID       = models.IntegerField(primary_key=True)
   dt       = models.DateTimeField()
-  nodeID   = models.ForeignKey(Node)
-  deviceID = models.ForeignKey(Device)
+  nodeID   = models.IntegerField()
+  deviceID = models.IntegerField()
   instance = models.IntegerField()
   action   = models.CharField(max_length=1)
   result   = models.IntegerField()
@@ -62,3 +76,8 @@ class RadioMsg(models.Model):
   tx_rx    = models.CharField(max_length=1)
   RSSI     = models.FloatField()
   req_id   = models.BigIntegerField()
+  
+  class Meta:
+    db_table = "radio_msg"
+    managed=False
+    
