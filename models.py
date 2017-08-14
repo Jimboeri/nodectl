@@ -10,7 +10,7 @@ class Class_type(models.Model):
   def __str__(self):
     return self.descr
 
-  
+
 class Node(models.Model):
   descr        = models.CharField(max_length=200)
   first_active = models.DateTimeField('Date first seen active')
@@ -47,15 +47,21 @@ class NodeDevice(models.Model):
     #node = Node.objects.get(id=1)
     return '{} - {}'.format(self.node_id.descr, self.device_id.name)
     
+  def mqtt_topic(self):
+    return("{}/{}/{}".format(self.node_id.mqtt_topic, \
+      self.device_id.name, self.instance))
+    
 class ndDetail(models.Model):
   nd_id          = models.ForeignKey(NodeDevice)
   detail_type    = models.CharField(max_length=1)
   detail_posn    = models.IntegerField(default=1)
   detail_text    = models.CharField(max_length=30)
   detail_descr   = models.CharField(max_length=200)
-  req_value      = models.FloatField()
+  req_value      = models.FloatField(help_text="This value will be sent to the target node as a parameter update")
   reported_value = models.FloatField()
   last_update    = models.DateTimeField()
+  min_value      = models.FloatField(null=True)
+  max_value      = models.FloatField(null=True)
   
   def __str__(self):
     return "{} - {} - {} - {}".format(self.nd_id.node_id.descr, self.nd_id.device_id.name,\

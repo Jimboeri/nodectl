@@ -4,10 +4,16 @@
 <h1>{{ nodedevice }}</h1>
 <p>Node ID {{ nodedevice.node_id.node }} {{ nodedevice.node_id.descr }}</p>
 <p>Device ID {{ nodedevice.device_id.device_id }} {{ nodedevice.device_id.descr }}</p>
+<p>Mqqt topic {{ mqtt_topic }}</p>
 {% if ndParam %}
-  <h3>Paramaters</h3>
+  <h3>Parameters</h3>
   {% for det in ndParam %}
-    <p>{{ det }}</p>
+    <p><a href="{% url 'nodectl:nodedeviceset' det.id %}">{{ det }}</a></p>
+    <p>{{ det.detail_text }}</p>
+    <p>Requested value: {{ det.req_value }}</p>
+    <p>Reported value: {{ det.reported_value }}</p>
+    <p> </p>
+
   {% endfor %}
 {% else %}
     <p>No parameter records are available.</p>

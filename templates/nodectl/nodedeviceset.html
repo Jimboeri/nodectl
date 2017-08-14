@@ -1,0 +1,13 @@
+{% extends "nodectl/base.html" %}
+
+{% block content %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'nodectl:nodedeviceset' ndDetail.id %}" method="post">
+{% csrf_token %}
+{{ form }}
+<input type="submit" value="Change" />
+</form>
+<p>{{ explain }}</p>
+{% endblock %}
